@@ -1,0 +1,11 @@
+org/felix/dictionary/database/H2InsertExample.class
+org/felix/dictionary/database/H2DeleteExample.class
+org/felix/dictionary/business/BusinessLogic.class
+org/felix/dictionary/utils/Parser.class
+org/felix/dictionary/Main.class
+org/felix/dictionary/database/H2CreateExample.class
+org/felix/dictionary/database/H2JDBCUtils.class
+org/felix/dictionary/database/H2SelectExample.class
+org/felix/dictionary/utils/CityComparator.class
+org/felix/dictionary/database/H2UpdateExample.class
+org/felix/dictionary/model/City.class
