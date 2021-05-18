@@ -1,8 +1,13 @@
 package org.felix.dictionary.database;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.felix.dictionary.jackson.JacksonStreamingWriteExample;
 import org.felix.dictionary.model.User;
 public class UserCrud implements BaseOper<User>{
     private static String jdbcURL = "jdbc:h2:~/best";
@@ -163,6 +168,62 @@ public class UserCrud implements BaseOper<User>{
             H2JDBCUtils.printSQLException(e);
         }
 
+    }
+
+    @Override
+    public void watchCards() {
+        String QUERY = "select id,card_number,bill_id from cards";
+
+        try (Connection connection = H2JDBCUtils.getConnection();
+
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(QUERY);) {
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+            List<User> users = new ArrayList<>();
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String card_number = rs.getString("card_number");
+                String bill_id = rs.getString("bill_id");
+                //       System.out.println("{\n  "+id + "," + card_number + "," + bill_id+'\n'+"}");
+                User user = new User(id,"",bill_id,card_number,0);
+                users.add(user);
+            }
+            JacksonStreamingWriteExample convert = new JacksonStreamingWriteExample();
+            convert.convertToJSON(users);
+        } catch (SQLException | IOException e) {
+            H2JDBCUtils.printSQLException((SQLException) e);
+        }
+        // Step 4: try-with-resource statement will auto close the connection.
+    }
+
+    @Override
+    public void checkBalance(User user) {
+        String QUERY = "select id,bill,balance from bills where id = ?";
+
+        try (Connection connection = H2JDBCUtils.getConnection();
+
+             // Step 2:Create a statement using connection object
+             PreparedStatement preparedStatement = connection.prepareStatement(QUERY);) {
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, user.getId());
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String bill = rs.getString("bill");
+                int balance = rs.getInt("balance");
+                User tmp = new User(id,bill,"","",balance);
+            }
+            JacksonStreamingWriteExample convert = new JacksonStreamingWriteExample();
+            convert.convertToJSONElem(user);
+        } catch (SQLException | IOException e) {
+            H2JDBCUtils.printSQLException((SQLException) e);
+        }
+        // Step 4: try-with-resource statement will auto close the connection.
     }
 
     @Override

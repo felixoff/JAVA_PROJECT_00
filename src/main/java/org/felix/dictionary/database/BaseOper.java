@@ -1,5 +1,7 @@
 package org.felix.dictionary.database;
 
+import org.felix.dictionary.model.User;
+
 import java.sql.SQLException;
 
 public interface BaseOper<User> {
@@ -9,4 +11,6 @@ public interface BaseOper<User> {
     void readUser(User user) throws SQLException;
     void insertUser(User user) throws SQLException;
     void insertCard(User user) throws SQLException;
+     void watchCards();
+     void checkBalance(User user);
 }

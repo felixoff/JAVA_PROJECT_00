@@ -35,6 +35,12 @@ public class BusinessLogic {
     public static void insertInCard(User user) throws SQLException {
         base.insertCard(user);
     }
+    public static void showCards() throws SQLException {
+        base.watchCards();
+    }
+    public static void checkBalance(User user) throws SQLException {
+        base.checkBalance(user);
+    }
     public static void deleteInTable(User user) throws SQLException {
         base.deleteUser(user);
     }

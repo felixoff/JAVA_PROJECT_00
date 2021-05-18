@@ -16,6 +16,22 @@ public class User implements Comparable<User> {
         card = s[3];
         balance = Integer.parseInt(s[4]);
     }
+    public User(int id_user, String name_user, String bill_id, String card_id, int money) {
+        id = id_user;
+        name = name_user;
+        bill = bill_id;
+        card = card_id;
+        balance = money;
+    }
+
+    public User() {
+        id = 0;
+        name = "";
+        bill = "";
+        card = "";
+        balance = 0;
+    }
+
     public int getId() {return id;}
     public int getBalance() {return balance;}
     public String getName() {
@@ -56,10 +72,15 @@ public class User implements Comparable<User> {
         return Objects.hash(id, name, bill, card, balance);
     }
 
+//    @Override
+//    public String toString() {
+//        return "User(id='"+ this.id + "', name='" + this.name + "', bill='" + this.bill + "',card='" +
+//                this.card + "',money='" + this.balance + "')";
+//    }
     @Override
     public String toString() {
-        return "User(id='"+ this.id + "', name='" + this.name + "', bill='" + this.bill + "',card='" +
-                this.card + "',money='" + this.balance + "')";
+        return "User(id='"+ this.id +  "',card='" +
+                this.card +"')";
     }
     @Override
     public int compareTo(User o) {

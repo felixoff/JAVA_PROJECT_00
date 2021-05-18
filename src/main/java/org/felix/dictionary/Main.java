@@ -1,21 +1,13 @@
 package org.felix.dictionary;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import org.felix.dictionary.business.BusinessLogic;
-import org.felix.dictionary.jackson.JacksonStreamingReadExample;
-import org.felix.dictionary.model.User;
-import org.felix.dictionary.utils.Parser;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.felix.dictionary.handlers.AddCartHandler;
+import org.felix.dictionary.handlers.ShowCardsHandler;
+import org.felix.dictionary.handlers.CheckBalanceHandler;
 
 import java.io.*;
 import java.net.InetSocketAddress;
-import java.nio.Buffer;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 public class Main {
     //    public static void clearScreen()
@@ -63,60 +55,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException, SQLException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-        server.createContext("/test", new MyHandler());
+        server.createContext("/post", new AddCartHandler());
+        server.createContext("/get", new ShowCardsHandler());
+        server.createContext("/check", new CheckBalanceHandler());
         server.setExecutor(null);
         server.start();
     }
-        static class MyHandler implements HttpHandler {
-
-
-            @Override
-            public void handle(HttpExchange exchange) throws IOException {
-                InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(),"utf-8");
-                BufferedReader br = new BufferedReader(isr);
-                int b;
-                StringBuilder buffer = new StringBuilder(512);
-                while ((b = br.read()) != -1)
-                {
-                    buffer.append((char)b);
-                }
-                System.out.println(buffer);
-                try(FileWriter writer = new FileWriter("stream_emp.json", false))
-                {
-                    // запись всей строки
-                    writer.write(buffer.toString());
-                    // запись по символам
-                    writer.append('\n');
-                    writer.flush();
-                    JacksonStreamingReadExample jacks = new JacksonStreamingReadExample();
-                    User user = jacks.parsing();
-                    BusinessLogic business = new BusinessLogic();
-                    business.insertInCard(user);
-                }
-                catch(IOException | SQLException ex){
-
-                    System.out.println(ex.getMessage());
-                }
-//                try {
-//                    JSONObject jsonObj = new JSONObject(buffer.toString());
-//                    System.out.println(jsonObj);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-                br.close();
-                isr.close();
-//                BusinessLogic business = new BusinessLogic();
-//                try {
-//                    business.insertInCard(new User("5;Ринат;DT5;41345858333333335;50505".split(";")));
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//                String responce = "My perfect responce";
-//                System.out.println("Hello");
-//                exchange.sendResponseHeaders(200,responce.length());
-//                OutputStream os = exchange.getResponseBody();
-//                os.write(responce.getBytes());
-//                os.close();
-            }
-        }
 }

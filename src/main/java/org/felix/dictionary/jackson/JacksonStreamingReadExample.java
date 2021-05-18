@@ -20,13 +20,12 @@ public class JacksonStreamingReadExample {
         JsonParser jsonParser = new JsonFactory().createParser(new File("stream_emp.json"));
 
         //loop through the tokens
-        User user = new User("6;Олег;DT6;41345858333333336;506".split(";"));
+        User user = new User();
 
         parseJSON(jsonParser, user);
 
         jsonParser.close();
         //print employee object
-        System.out.println("Employee Object\n\n" + user);
         return(user);
     }
 
