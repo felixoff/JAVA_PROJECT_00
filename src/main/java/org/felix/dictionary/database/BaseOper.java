@@ -11,6 +11,7 @@ public interface BaseOper<User> {
     void readUser(User user) throws SQLException;
     void insertUser(User user) throws SQLException;
     void insertCard(User user) throws SQLException;
-     void watchCards();
-     void checkBalance(User user);
+     String watchCards();
+     String checkBalance(User user) throws SQLException;
+     void updateBalance(User user);
 }

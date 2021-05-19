@@ -26,6 +26,18 @@ public class BusinessLogic {
         users = p.parse();
         base = new UserCrud();
     }
+
+    public static String getAlphaNumericString(int n) {
+        String AlphaNumericString = "0123456789";
+
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index = (int) (AlphaNumericString.length() * Math.random());
+            sb.append(AlphaNumericString.charAt(index));
+        }
+        return sb.toString();
+    }
+
     public static void createTable() throws SQLException {
         base.createUser();
     }
@@ -35,11 +47,14 @@ public class BusinessLogic {
     public static void insertInCard(User user) throws SQLException {
         base.insertCard(user);
     }
-    public static void showCards() throws SQLException {
-        base.watchCards();
+    public static void updateBalance(User user) throws SQLException {
+        base.updateBalance(user);
     }
-    public static void checkBalance(User user) throws SQLException {
-        base.checkBalance(user);
+    public static String showCards() throws SQLException {
+        return base.watchCards();
+    }
+    public static String checkBalance(User user) throws SQLException {
+        return base.checkBalance(user);
     }
     public static void deleteInTable(User user) throws SQLException {
         base.deleteUser(user);
