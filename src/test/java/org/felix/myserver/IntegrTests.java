@@ -19,11 +19,23 @@ public class IntegrTests {
     }
 
     @Test
-    public void checkGetCardsIntegr() throws IOException, SQLException {
+    public void TestAll() throws IOException, SQLException {
         StartServer server = new StartServer();
         server.start();
         InitTables init = new InitTables();
         init.createTables();
+        checkAddCardIntegr();
+        checkAddMoneyIntegr();
+        checkGetBalanceIntegr();
+        checkGetCardsIntegr();
+    }
+
+    @Test
+    public void checkGetCardsIntegr() throws IOException, SQLException {
+//        StartServer server = new StartServer();
+//        server.start();
+//        InitTables init = new InitTables();
+//        init.createTables();
         String url = "http://localhost:8080/getCards";
         String expected = makeGETURL(url);
         BusinessLogic business = new BusinessLogic();
@@ -35,10 +47,10 @@ public class IntegrTests {
 
     @Test
     public void checkGetBalanceIntegr() throws IOException, SQLException {
-        StartServer server = new StartServer();
-        server.start();
-        InitTables init = new InitTables();
-        init.createTables();
+//        StartServer server = new StartServer();
+//        server.start();
+//        InitTables init = new InitTables();
+//        init.createTables();
         String url = "http://localhost:8080/check?bill=11111111111111111111";
         String expected = makeGETURL(url);
         User user = new User();
@@ -113,10 +125,10 @@ public class IntegrTests {
     @Test
     public void checkAddCardIntegr() throws IOException, SQLException {
 
-        StartServer server = new StartServer();
-        server.start();
-        InitTables init = new InitTables();
-        init.createTables();
+//        StartServer server = new StartServer();
+//        server.start();
+//        InitTables init = new InitTables();
+//        init.createTables();
         int expected = makePattern();
 
         String adress = "http://localhost:8080/addCard";
@@ -129,10 +141,10 @@ public class IntegrTests {
     @Test
     public void checkAddMoneyIntegr() throws IOException, SQLException {
 
-        StartServer server = new StartServer();
-        server.start();
-        InitTables init = new InitTables();
-        init.createTables();
+//        StartServer server = new StartServer();
+//        server.start();
+//        InitTables init = new InitTables();
+//        init.createTables();
         String adress = "http://localhost:8080/addMoney";
         makePOSTURL(adress);
         User user = new User();

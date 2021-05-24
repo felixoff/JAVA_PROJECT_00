@@ -2,7 +2,7 @@ package org.felix.myserver.model;
 
 import java.util.Objects;
 
-public class Users  {
+public class Users {
     private int id;
     private String bill_from;
     private String bill_to;
@@ -15,7 +15,7 @@ public class Users  {
         balance = Integer.parseInt(s[3]);
     }
 
-    public Users(int id_user, String bil_from, String bil_to,  int money) {
+    public Users(int id_user, String bil_from, String bil_to, int money) {
         id = id_user;
         bill_from = bil_from;
         bill_to = bil_to;
@@ -62,7 +62,7 @@ public class Users  {
         this.balance = money;
     }
 
-//    @Override
+    //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;

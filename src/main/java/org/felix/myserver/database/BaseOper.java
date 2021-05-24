@@ -6,7 +6,7 @@ import org.felix.myserver.model.Users;
 import java.sql.SQLException;
 
 public interface BaseOper<User> {
-    public void createUser() throws SQLException;
+    void createUser() throws SQLException;
 
     void updateUser(User user) throws SQLException;
 

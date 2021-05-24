@@ -1,10 +1,14 @@
 package org.felix.myserver.database;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.felix.myserver.business.BusinessLogic;
 import org.felix.myserver.model.User;
@@ -481,9 +485,19 @@ public class UserCrud implements BaseOper<User> {
             preparedStatement2.setString(1, users.getBill_to());
             preparedStatement2.setInt(2, users.getBalance());
             preparedStatement2.setString(3, users.getBill_to());
+            BusinessLogic business = new BusinessLogic();
+            String input_bill = users.getBill_from();
+            User user = new User();
+            user.setBill(input_bill);
+            String from_bus = business.checkBalance(user);
+            ObjectMapper mapper = new ObjectMapper();
+            user = mapper.readValue(from_bus, User.class);
+            if (user.getBalance() - users.getBalance() < 0){
+                throw new SQLException();
+            }
             int j = preparedStatement2.executeUpdate();
             int i = preparedStatement1.executeUpdate();
-            if (i == 0 || j == 0 ) {
+            if (i == 0 || j == 0) {
                 throw new SQLException();
             }
 //        } catch (SQLException e) {
@@ -494,10 +508,16 @@ public class UserCrud implements BaseOper<User> {
 //            return "Incorrect body";
 //        }
 //        return "Add money complete!";
-        } catch (SQLException e) {
+        } catch (SQLException | FileNotFoundException e) {
             System.out.println("IncorrectBody");
             return "Incorrect body";
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return "Perevod complete!";
+        return "Transaction complete!";
     }
 }

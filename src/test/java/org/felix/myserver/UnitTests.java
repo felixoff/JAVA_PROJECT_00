@@ -5,6 +5,8 @@ import org.felix.myserver.database.InitTables;
 import org.felix.myserver.model.User;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.gen5.api.BeforeAll;
+import org.junit.gen5.api.BeforeEach;
 
 import java.io.*;
 import java.net.*;
@@ -15,14 +17,29 @@ import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 
+
 public class UnitTests {
-    public UnitTests() throws MalformedURLException {
+
+//    @BeforeAll
+//    public void before() throws IOException, SQLException {
+//        InitTables init = new InitTables();
+//        init.createTables();
+//    }
+
+    @Test
+    public void TestAll() throws IOException, SQLException {
+        InitTables init = new InitTables();
+        init.createTables();
+        checkGetCards();
+        checkAddCard();
+        checkGetBalance();
+        checkAddMoney();
     }
 
     @Test
     public void checkGetCards() throws IOException, SQLException {
-        InitTables init = new InitTables();
-        init.createTables();
+//        InitTables init = new InitTables();
+//        init.createTables();
         String expected = "[{\"id\":1,\"card\":\"5555555555555555\"},{\"id\":2,\"card\":\"5555555555555595\"}]";
         BusinessLogic business = new BusinessLogic();
         String actual = business.showCards();
@@ -31,8 +48,8 @@ public class UnitTests {
 
     @Test
     public void checkGetBalance() throws IOException, SQLException {
-        InitTables init = new InitTables();
-        init.createTables();
+//        InitTables init = new InitTables();
+//        init.createTables();
         String expected = "{\"id\":1,\"name\":\"petr\",\"bill\":\"11111111111111111111\",\"balance\":5000}";
         User user = new User();
         user.setBill("11111111111111111111");
@@ -60,8 +77,8 @@ public class UnitTests {
     @Test
     public void checkAddCard() throws IOException, SQLException {
 
-        InitTables init = new InitTables();
-        init.createTables();
+//        InitTables init = new InitTables();
+//        init.createTables();
         User user = new User();
         user.setBill("11111111111111111111");
         BusinessLogic business = new BusinessLogic();
@@ -74,8 +91,8 @@ public class UnitTests {
 
     @Test
     public void checkAddMoney() throws IOException, SQLException {
-        InitTables init = new InitTables();
-        init.createTables();
+//        InitTables init = new InitTables();
+//        init.createTables();
         User user = new User();
         user.setBill("11111111111111111111");
         user.setBalance(555);

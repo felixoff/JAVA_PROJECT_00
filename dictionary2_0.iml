@@ -22,6 +22,11 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.2.3" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.junit:junit5-engine:5.0.0-ALPHA" level="project" />
+    <orderEntry type="library" name="Maven: org.junit:junit5-api:5.0.0-ALPHA" level="project" />
+    <orderEntry type="library" name="Maven: org.opentest4j:opentest4j:1.0.0-ALPHA" level="project" />
+    <orderEntry type="library" name="Maven: org.junit:junit-commons:5.0.0-ALPHA" level="project" />
+    <orderEntry type="library" name="Maven: org.junit:junit-engine-api:5.0.0-ALPHA" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.6" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
