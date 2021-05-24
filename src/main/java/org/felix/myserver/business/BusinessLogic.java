@@ -2,6 +2,7 @@ package org.felix.myserver.business;
 
 import org.felix.myserver.database.UserCrud;
 import org.felix.myserver.model.User;
+import org.felix.myserver.model.Users;
 import org.felix.myserver.utils.UserComparator;
 
 import java.io.FileNotFoundException;
@@ -44,8 +45,12 @@ public class BusinessLogic {
         return base.insertCard(user);
     }
 
-    public static void updateBalance(User user) throws SQLException {
-        base.updateBalance(user);
+    public static String updateBalance(User user) throws SQLException {
+        return base.updateBalance(user);
+    }
+
+    public static String perevod(Users users) throws SQLException {
+        return base.perevod(users);
     }
 
     public static String showCards() throws SQLException {

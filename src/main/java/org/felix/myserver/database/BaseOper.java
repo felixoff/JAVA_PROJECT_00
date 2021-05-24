@@ -1,5 +1,8 @@
 package org.felix.myserver.database;
 
+import org.felix.myserver.model.User;
+import org.felix.myserver.model.Users;
+
 import java.sql.SQLException;
 
 public interface BaseOper<User> {
@@ -19,5 +22,7 @@ public interface BaseOper<User> {
 
     String checkBalance(User user) throws SQLException;
 
-    void updateBalance(User user);
+    String updateBalance(User user) throws SQLException;
+
+    String perevod(Users users);
 }

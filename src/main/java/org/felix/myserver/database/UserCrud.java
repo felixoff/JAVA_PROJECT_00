@@ -10,6 +10,7 @@ import org.felix.myserver.business.BusinessLogic;
 import org.felix.myserver.model.User;
 import org.felix.myserver.model.UserForBalance;
 import org.felix.myserver.model.UserForCards;
+import org.felix.myserver.model.Users;
 
 public class UserCrud implements BaseOper<User> {
     private static String jdbcURL = "jdbc:h2:mem:base;DB_CLOSE_DELAY=-1";
@@ -247,7 +248,7 @@ public class UserCrud implements BaseOper<User> {
     }
 
     @Override
-    public void updateUser(User user)  {
+    public void updateUser(User user) {
         String UPDATE_USERS_SQL = "update users set name = ? where id = ?;";
         //   System.out.println(UPDATE_USERS_SQL);
         // Step 1: Establishing a Connection
@@ -269,7 +270,7 @@ public class UserCrud implements BaseOper<User> {
     }
 
     @Override
-    public void deleteUser(User user)  {
+    public void deleteUser(User user) {
         String deleteTableSQL = "delete from users where id = 1";
         //      System.out.println(deleteTableSQL);
         // Step 1: Establishing a Connection
@@ -287,7 +288,7 @@ public class UserCrud implements BaseOper<User> {
     }
 
     @Override
-    public void readUser(User user)  {
+    public void readUser(User user) {
         String QUERY = "select id,name,bill,card,money from users where id =?";
         // using try-with-resources to avoid closing resources (boiler plate code)
 
@@ -318,7 +319,7 @@ public class UserCrud implements BaseOper<User> {
 
 
     @Override
-    public String insertCard(User user)  {
+    public String insertCard(User user) {
         String INSERT_CARDS_SQL = "INSERT INTO cards (card_number, bill_id) VALUES " +
                 " (?,?);";
 
@@ -335,9 +336,7 @@ public class UserCrud implements BaseOper<User> {
             // Step 3: Execute the query or update query
             try {
                 preparedStatement.executeUpdate();
-            }
-            catch (Throwable e)
-            {
+            } catch (SQLException e) {
                 System.out.println("IncorrectBody");
                 return "Incorrect body";
             }
@@ -397,8 +396,10 @@ public class UserCrud implements BaseOper<User> {
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
             // Step 4: Process the ResultSet object.
-            if (!rs.next()){return "Enter correct bill";}
-       //     rs.next();
+            if (!rs.next()) {
+                return "Enter correct bill";
+            }
+            //     rs.next();
             int id = rs.getInt("id");
             String name = rs.getString("client_id");
             String bill = rs.getString("bill");
@@ -414,7 +415,7 @@ public class UserCrud implements BaseOper<User> {
     }
 
     @Override
-    public void insertUser(User user)  {
+    public void insertUser(User user) {
         String INSERT_USERS_SQL = "INSERT INTO users" +
                 "  (id, name, bill, card , money) VALUES " +
                 " (?, ?, ?, ?, ?);";
@@ -442,7 +443,7 @@ public class UserCrud implements BaseOper<User> {
         // Step 4: try-with-resource statement will auto close the connection.
     }
 
-    public void updateBalance(User user) {
+    public String updateBalance(User user) {
         String UPDATE_USERS_SQL = "update bills set balance = (select balance from bills where bill = ?) + ? where bill = ?";
         //     System.out.println(UPDATE_USERS_SQL);
         // Step 1: Establishing a Connection
@@ -454,11 +455,49 @@ public class UserCrud implements BaseOper<User> {
             preparedStatement.setString(3, user.getBill());
 
             // Step 3: Execute the query or update query
-            preparedStatement.executeUpdate();
+            int i = preparedStatement.executeUpdate();
+            if (i == 0) {
+                throw new SQLException();
+            }
         } catch (SQLException e) {
 
             // print SQL exception information
-            printSQLException(e);
+            //   printSQLException(e);
+            System.out.println("IncorrectBody");
+            return "Incorrect body";
         }
+        return "Add money complete!";
+    }
+
+    public String perevod(Users users) {
+        String UPDATE_USERS_SQL1 = "update bills set balance = (select balance from bills where bill = ?) - ? where bill = ?";
+        String UPDATE_USERS_SQL2 = "update bills set balance = (select balance from bills where bill = ?) + ? where bill = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement1 = connection.prepareStatement(UPDATE_USERS_SQL1);
+             PreparedStatement preparedStatement2 = connection.prepareStatement(UPDATE_USERS_SQL2)) {
+            preparedStatement1.setString(1, users.getBill_from());
+            preparedStatement1.setInt(2, users.getBalance());
+            preparedStatement1.setString(3, users.getBill_from());
+            preparedStatement2.setString(1, users.getBill_to());
+            preparedStatement2.setInt(2, users.getBalance());
+            preparedStatement2.setString(3, users.getBill_to());
+            int j = preparedStatement2.executeUpdate();
+            int i = preparedStatement1.executeUpdate();
+            if (i == 0 || j == 0 ) {
+                throw new SQLException();
+            }
+//        } catch (SQLException e) {
+//
+//            // print SQL exception information
+//            //   printSQLException(e);
+//            System.out.println("IncorrectBody");
+//            return "Incorrect body";
+//        }
+//        return "Add money complete!";
+        } catch (SQLException e) {
+            System.out.println("IncorrectBody");
+            return "Incorrect body";
+        }
+        return "Perevod complete!";
     }
 }

@@ -5,38 +5,30 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.felix.myserver.business.BusinessLogic;
 import org.felix.myserver.model.User;
+import org.felix.myserver.model.Users;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
 
-public class AddMoneyHandler implements HttpHandler {
+public class MakePerevodHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-//        String type = exchange.getRequestMethod();
-//                InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "utf-8");
-//                BufferedReader br = new BufferedReader(isr);
-//                int b;
-//                StringBuilder buffer = new StringBuilder(512);
-//                while ((b = br.read()) != -1) {
-//                    buffer.append((char) b);
-//                }
-//                System.out.println(buffer);
         ObjectMapper mapper = new ObjectMapper();
-        User user = mapper.readValue(exchange.getRequestBody(), User.class);
-        System.out.println(user.toString());
+        Users users = mapper.readValue(exchange.getRequestBody(), Users.class);
+        System.out.println(users.toString());
         BusinessLogic business = new BusinessLogic();
         String responce = null;
         try {
-            responce = business.updateBalance(user);
+            responce = business.perevod(users);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         //               br.close();
         //             isr.close();
-     //   String responce = "Add money complete!";
-     //   String responce = "finish";
- //       System.out.println("Add money complete!");
+        //   String responce = "Add money complete!";
+        //   String responce = "finish";
+        //       System.out.println("Add money complete!");
         exchange.sendResponseHeaders(200, responce.length());
         OutputStream os = exchange.getResponseBody();
         os.write(responce.getBytes());

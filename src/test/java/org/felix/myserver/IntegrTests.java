@@ -138,7 +138,7 @@ public class IntegrTests {
         User user = new User();
         user.setBill("11111111111111111111");
         BusinessLogic business = new BusinessLogic();
-        String expected = "{\"id\":1,\"name\":\"petr\",\"bill\":\"11111111111111111111\",\"balance\":560}";
+        String expected = "{\"id\":1,\"name\":\"petr\",\"bill\":\"11111111111111111111\",\"balance\":5555}";
         System.out.println(expected);
         String actual = business.checkBalance(user);
         System.out.println(actual);

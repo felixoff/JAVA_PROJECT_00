@@ -33,7 +33,7 @@ public class UnitTests {
     public void checkGetBalance() throws IOException, SQLException {
         InitTables init = new InitTables();
         init.createTables();
-        String expected = "{\"id\":1,\"name\":\"petr\",\"bill\":\"11111111111111111111\",\"balance\":5}";
+        String expected = "{\"id\":1,\"name\":\"petr\",\"bill\":\"11111111111111111111\",\"balance\":5000}";
         User user = new User();
         user.setBill("11111111111111111111");
         BusinessLogic business = new BusinessLogic();
@@ -80,7 +80,7 @@ public class UnitTests {
         user.setBill("11111111111111111111");
         user.setBalance(555);
         BusinessLogic business = new BusinessLogic();
-        String expected = "{\"id\":1,\"name\":\"petr\",\"bill\":\"11111111111111111111\",\"balance\":560}";
+        String expected = "{\"id\":1,\"name\":\"petr\",\"bill\":\"11111111111111111111\",\"balance\":5555}";
         System.out.println(expected);
         business.updateBalance(user);
         String actual = business.checkBalance(user);

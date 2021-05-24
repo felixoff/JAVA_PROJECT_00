@@ -1,10 +1,7 @@
 package org.felix.myserver;
 
 import com.sun.net.httpserver.HttpServer;
-import org.felix.myserver.handlers.AddCardHandler;
-import org.felix.myserver.handlers.AddMoneyHandler;
-import org.felix.myserver.handlers.CheckBalanceHandler;
-import org.felix.myserver.handlers.ShowCardsHandler;
+import org.felix.myserver.handlers.*;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -16,6 +13,7 @@ public class StartServer {
         server.createContext("/getCards", new ShowCardsHandler());
         server.createContext("/addMoney", new AddMoneyHandler());
         server.createContext("/check", new CheckBalanceHandler());
+        server.createContext("/perevod", new MakePerevodHandler());
         server.setExecutor(null);
         server.start();
     }

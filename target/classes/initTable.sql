@@ -19,7 +19,11 @@ ALTER TABLE CARDS ALTER COLUMN ID RESTART WITH 1;
 
 INSERT INTO clients(client) VALUES ('petr');
 
-INSERT INTO bills (bill, balance, client_id) VALUES  ('11111111111111111111',5,'petr');
+INSERT INTO clients(client) VALUES ('oleg');
+
+INSERT INTO bills (bill, balance, client_id) VALUES  ('11111111111111111111',5000,'petr');
+
+INSERT INTO bills (bill, balance, client_id) VALUES  ('22222222222222222222',5000,'oleg');
 
 INSERT INTO cards (card_number ,bill_id) VALUES  ('5555555555555555','11111111111111111111');
 
