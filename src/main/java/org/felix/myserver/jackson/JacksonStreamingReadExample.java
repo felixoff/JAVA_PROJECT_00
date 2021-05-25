@@ -1,13 +1,13 @@
 package org.felix.myserver.jackson;
 
-import java.io.File;
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import org.felix.myserver.model.User;
+
+import java.io.File;
+import java.io.IOException;
 
 public class JacksonStreamingReadExample {
 

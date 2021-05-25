@@ -1,10 +1,8 @@
 package org.felix.myserver;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.felix.myserver.database.InitTables;
-import org.felix.myserver.model.Users;
 
-import java.io.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Main {

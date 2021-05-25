@@ -1,11 +1,11 @@
 package org.felix.myserver.jackson;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.felix.myserver.model.User;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.felix.myserver.model.User;
 
 public class JacksonStreamingWriteExample {
     public static void convertToJSON(List<User> users) throws IOException {

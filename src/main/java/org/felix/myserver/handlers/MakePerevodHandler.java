@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.felix.myserver.business.BusinessLogic;
-import org.felix.myserver.model.User;
 import org.felix.myserver.model.Users;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ public class MakePerevodHandler implements HttpHandler {
         ObjectMapper mapper = new ObjectMapper();
         Users users = mapper.readValue(exchange.getRequestBody(), Users.class);
         System.out.println(users.toString());
-        BusinessLogic business = new BusinessLogic();
+        BusinessLogic business = new BusinessLogic();//вынести наверх
         String responce = null;
         try {
             responce = business.perevod(users);

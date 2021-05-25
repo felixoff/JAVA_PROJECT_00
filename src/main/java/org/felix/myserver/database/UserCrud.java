@@ -1,11 +1,5 @@
 package org.felix.myserver.database;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +9,12 @@ import org.felix.myserver.model.User;
 import org.felix.myserver.model.UserForBalance;
 import org.felix.myserver.model.UserForCards;
 import org.felix.myserver.model.Users;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserCrud implements BaseOper<User> {
     private static String jdbcURL = "jdbc:h2:mem:base;DB_CLOSE_DELAY=-1";
@@ -359,7 +359,7 @@ public class UserCrud implements BaseOper<User> {
 
     @Override
     public String watchCards() {
-        String QUERY = "select id,card_number,bill_id from cards";
+        String QUERY = "select id,card_number,bill_id from cards";//вынести в начало за метод и логи написать ошибки
 
         try (Connection connection = getConnection();
 

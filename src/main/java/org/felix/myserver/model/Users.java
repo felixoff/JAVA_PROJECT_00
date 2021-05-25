@@ -1,7 +1,5 @@
 package org.felix.myserver.model;
 
-import java.util.Objects;
-
 public class Users {
     private int id;
     private String bill_from;

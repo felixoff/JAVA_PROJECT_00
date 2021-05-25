@@ -6,7 +6,8 @@ import com.sun.net.httpserver.HttpHandler;
 import org.felix.myserver.business.BusinessLogic;
 import org.felix.myserver.model.User;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 
 public class AddCardHandler implements HttpHandler {

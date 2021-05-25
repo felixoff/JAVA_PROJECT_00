@@ -1,6 +1,5 @@
 package org.felix.myserver.database;
 
-import org.felix.myserver.model.User;
 import org.felix.myserver.model.Users;
 
 import java.sql.SQLException;
